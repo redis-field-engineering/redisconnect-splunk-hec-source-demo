@@ -1,0 +1,31 @@
+<assembly>
+    <id>tar</id>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>target</directory>
+            <outputDirectory>redisconnect-splunk-hec-source</outputDirectory>
+            <includes>
+                <include>redisconnect-splunk-hec-source-*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target/lib</directory>
+            <outputDirectory>redisconnect-splunk-hec-source/lib</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/config</directory>
+            <outputDirectory>redisconnect-splunk-hec-source/config</outputDirectory>
+            <includes>
+                <include>logback.xml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
