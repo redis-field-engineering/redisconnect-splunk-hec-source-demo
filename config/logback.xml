@@ -28,7 +28,7 @@
         <url>${splunk.url}</url>
         <index>${splunk.index}</index>
         <token>${splunk.token}</token>
-        <batch_size_count>10</batch_size_count>
+        <!--<batch_size_count>10</batch_size_count>-->
         <disableCertificateValidation>true</disableCertificateValidation>
         <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
             <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter" />
