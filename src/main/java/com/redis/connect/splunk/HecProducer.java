@@ -3,9 +3,8 @@ package com.redis.connect.splunk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetAddress;
 import java.time.Instant;
-import java.util.Date;
-import java.util.UUID;
 
 public class HecProducer implements Runnable {
 
@@ -20,15 +19,18 @@ public class HecProducer implements Runnable {
     public void run() {
 
         for (int i = 1; i <= iteration; i++) {
-            String jsonMsg = String.format("{EventId:'%s', EventDate:'%s', EventTimeInMillis:'%d', EventMsg:'This is test event %d for Java Logging with Logback and Splunk HEC'}", UUID.randomUUID(), new Date(), Instant.now().toEpochMilli(), i);
             // Let's sleep for 1 sec between each iteration since HEC is dropping messages
             try {
+                String jsonInfoMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"EventMsg\": \"This is test event %d for Java Logging with Logback and Splunk HEC\"}", Instant.now().toEpochMilli(), "infoLogs", "infoLogs", "logback", InetAddress.getLocalHost().getHostName(), i);
+                logger.info("{}", jsonInfoMsg);
+
+                String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\"}", Instant.now().toEpochMilli(), "debugLogs", "debugLogs", "logback", InetAddress.getLocalHost().getHostName(), System.getProperty("splunk.url"), System.getProperty("splunk.token"), System.getProperty("splunk.index"));
+                logger.debug("{}", jsonDebugMsg);
+
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                logger.error("InterruptedException occurred..", e);
+            } catch (Exception e) {
+                logger.error("Exception occurred..", e);
             }
-            logger.info("{}", jsonMsg);
-            logger.debug("Splunk URL: {}, Splunk Token: {}, Splunk Index: {}", System.getProperty("splunk.url"), System.getProperty("splunk.token"), System.getProperty("splunk.index"));
         }
     }
 }
