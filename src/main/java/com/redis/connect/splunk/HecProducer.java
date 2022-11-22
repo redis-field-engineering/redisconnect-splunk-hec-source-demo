@@ -10,6 +10,12 @@ public class HecProducer implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(HecProducer.class.getName());
     private static final int iteration = Integer.parseInt(System.getProperty("iter", String.valueOf(1)));
+    private String hostname = null;
+    private final String splunkUrl = System.getProperty("splunk.url", "http://localhost:8088");
+    private final String splunkToken = System.getProperty("splunk.token", "414b7f8e-cfbb-4a9a-b18a-303de41ccc76");
+    private final String splunkIndex = System.getProperty("splunk.index", "hec");
+    private final String splunkType = System.getProperty("splunk.type", "json");
+    private final String splunkSourceType = System.getProperty("splunk.sourcetype", "logback");
 
     public static void main(String[] args) {
         new HecProducer().run();
@@ -21,15 +27,18 @@ public class HecProducer implements Runnable {
         for (int i = 1; i <= iteration; i++) {
             // Let's sleep for 1 sec between each iteration since HEC is dropping messages
             try {
-                String jsonInfoMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"EventMsg\": \"This is test event %d for Java Logging with Logback and Splunk HEC\"}", Instant.now().toEpochMilli(), "infoLogs", "logback", "logback", InetAddress.getLocalHost().getHostName(), i);
+                hostname = InetAddress.getLocalHost().getHostName();
+
+                String jsonInfoMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"EventMsg\": \"This is test event %d for Java Logging with Logback and Splunk HEC\"}", Instant.now().toEpochMilli(), "infoLogs", "JavaLogging", splunkSourceType, hostname, i);
                 logger.info("{}", jsonInfoMsg);
 
-                String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\"}", Instant.now().toEpochMilli(), "debugLogs", "logback", "logback", InetAddress.getLocalHost().getHostName(), System.getProperty("splunk.url"), System.getProperty("splunk.token"), System.getProperty("splunk.index"), System.getProperty("splunk.type"));
+                String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\"}", Instant.now().toEpochMilli(), "debugLogs", "JavaLogging", splunkSourceType, hostname, splunkUrl, splunkToken, splunkIndex, splunkType);
                 logger.debug("{}", jsonDebugMsg);
 
                 Thread.sleep(1000);
             } catch (Exception e) {
-                logger.error("Exception occurred..", e);
+                String jsonExceptionMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\"}", Instant.now().toEpochMilli(), "errorLogs", "JavaLogging", splunkSourceType, hostname, splunkUrl, splunkToken, splunkIndex, splunkType);
+                logger.error("{}", jsonExceptionMsg);
             }
         }
     }
