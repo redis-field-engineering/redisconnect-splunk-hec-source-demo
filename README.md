@@ -14,6 +14,18 @@ java -jar \
 -Dsplunk.token=<HEC_TOKEN> \
 -Dsplunk.index=<HEC_INDEX_NAME> \
 -Dsplunk.sourcetype=logback \
+-Dsplunk.type=json|raw \
+-Diter=1 \
+redisconnect-splunk-hec-source-1.0-SNAPSHOT.jar
+```
+e.g.
+```bash
+redisconnect-splunk-hec-source$ java -jar \
+-Dlogback.configurationFile=config/logback.xml \
+-Dsplunk.url=http://localhost:8088 \
+-Dsplunk.token=414b7f8e-cfbb-4a9a-b18a-303de41ccc76 \
+-Dsplunk.index=hec \
+-Dsplunk.sourcetype=logback \
 -Dsplunk.type=json \
 -Diter=1 \
 redisconnect-splunk-hec-source-1.0-SNAPSHOT.jar
