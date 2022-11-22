@@ -29,7 +29,8 @@
         <index>${splunk.index}</index>
         <token>${splunk.token}</token>
         <type>${splunk.type}</type>
-        <!--<batch_size_count>10</batch_size_count>-->
+        <sourcetype>${splunk.sourcetype}</sourcetype>
+        <!--<batch_size_count>1</batch_size_count>-->
         <disableCertificateValidation>true</disableCertificateValidation>
         <!--<layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
             <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter" />
@@ -37,7 +38,7 @@
             <appendLineSeparator>true</appendLineSeparator>
         </layout>-->
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%msg%n</pattern>
+            <pattern>%msg</pattern>
         </layout>
     </appender>
 

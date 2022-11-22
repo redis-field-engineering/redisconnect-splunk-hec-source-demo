@@ -21,10 +21,10 @@ public class HecProducer implements Runnable {
         for (int i = 1; i <= iteration; i++) {
             // Let's sleep for 1 sec between each iteration since HEC is dropping messages
             try {
-                String jsonInfoMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"EventMsg\": \"This is test event %d for Java Logging with Logback and Splunk HEC\"}", Instant.now().toEpochMilli(), "infoLogs", "infoLogs", "logback", InetAddress.getLocalHost().getHostName(), i);
+                String jsonInfoMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"EventMsg\": \"This is test event %d for Java Logging with Logback and Splunk HEC\"}", Instant.now().toEpochMilli(), "infoLogs", "logback", "logback", InetAddress.getLocalHost().getHostName(), i);
                 logger.info("{}", jsonInfoMsg);
 
-                String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\"}", Instant.now().toEpochMilli(), "debugLogs", "debugLogs", "logback", InetAddress.getLocalHost().getHostName(), System.getProperty("splunk.url"), System.getProperty("splunk.token"), System.getProperty("splunk.index"));
+                String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\"}", Instant.now().toEpochMilli(), "debugLogs", "logback", "logback", InetAddress.getLocalHost().getHostName(), System.getProperty("splunk.url"), System.getProperty("splunk.token"), System.getProperty("splunk.index"), System.getProperty("splunk.type"));
                 logger.debug("{}", jsonDebugMsg);
 
                 Thread.sleep(1000);

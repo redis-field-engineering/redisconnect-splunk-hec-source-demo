@@ -13,7 +13,8 @@ java -jar \
 -Dsplunk.url=<HEC_ENDPOINT> \
 -Dsplunk.token=<HEC_TOKEN> \
 -Dsplunk.index=<HEC_INDEX_NAME> \
--Dsplunk.type=raw \
+-Dsplunk.sourcetype=logback \
+-Dsplunk.type=json \
 -Diter=1 \
 redisconnect-splunk-hec-source-1.0-SNAPSHOT.jar
 ```
