@@ -39,6 +39,9 @@ public class HecProducer implements Runnable {
 
                 Thread.sleep(interval);
             } catch (Exception e) {
+                String jsonExceptionMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\"}", Instant.now().toEpochMilli(), "Exception occurred: " + e.getMessage() + " in Java Logging with Logback and Splunk HEC", "JavaLogging", splunkSourceType, hostname);
+                logger.error("{}", jsonExceptionMsg);
+            } finally {
                 String jsonExceptionMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\"}", Instant.now().toEpochMilli(), "This is error test event " + i + " for Java Logging with Logback and Splunk HEC", "JavaLogging", splunkSourceType, hostname);
                 logger.error("{}", jsonExceptionMsg);
             }
