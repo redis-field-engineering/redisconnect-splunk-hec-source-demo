@@ -9,7 +9,9 @@ import java.time.Instant;
 public class HecProducer implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(HecProducer.class.getName());
-    private static final int iteration = Integer.parseInt(System.getProperty("iter", String.valueOf(1)));
+
+    private final int iteration = Integer.parseInt(System.getProperty("iteration", String.valueOf(1)));
+    private final int interval = Integer.parseInt(System.getProperty("interval", String.valueOf(1000)));
     private String hostname = null;
     private final String splunkUrl = System.getProperty("splunk.url", "http://localhost:8088");
     private final String splunkToken = System.getProperty("splunk.token", "414b7f8e-cfbb-4a9a-b18a-303de41ccc76");
@@ -35,7 +37,7 @@ public class HecProducer implements Runnable {
                 String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"clientDetails\": { \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\" } }", Instant.now().toEpochMilli(), "This is debug test event " + i + " for Java Logging with Logback and Splunk HEC", "JavaLogging", splunkSourceType, hostname, splunkUrl, splunkToken, splunkIndex, splunkType);
                 logger.debug("{}", jsonDebugMsg);
 
-                Thread.sleep(1000);
+                Thread.sleep(interval);
             } catch (Exception e) {
                 String jsonExceptionMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\"}", Instant.now().toEpochMilli(), "This is error test event " + i + " for Java Logging with Logback and Splunk HEC", "JavaLogging", splunkSourceType, hostname);
                 logger.error("{}", jsonExceptionMsg);

@@ -15,7 +15,8 @@ java -jar \
 -Dsplunk.index=<HEC_INDEX_NAME> \
 -Dsplunk.sourcetype=logback \
 -Dsplunk.type=json|raw \
--Diter=1 \
+-Diteration=1 (default, No. of iterations to run) \
+-Dinterval=1000 (default, Sleep interval between each iteration in ms) \
 redisconnect-splunk-hec-source-1.0-SNAPSHOT.jar
 ```
 e.g.
@@ -27,6 +28,6 @@ redisconnect-splunk-hec-source$ java -jar \
 -Dsplunk.index=hec \
 -Dsplunk.sourcetype=logback \
 -Dsplunk.type=json \
--Diter=1 \
+-Diteration=1 \
 redisconnect-splunk-hec-source-1.0-SNAPSHOT.jar
 ```
