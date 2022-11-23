@@ -38,7 +38,7 @@
             <appendLineSeparator>true</appendLineSeparator>
         </layout>-->
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%msg</pattern>
+            <pattern>%msg%n</pattern>
         </layout>
     </appender>
 

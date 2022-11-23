@@ -29,15 +29,15 @@ public class HecProducer implements Runnable {
             try {
                 hostname = InetAddress.getLocalHost().getHostName();
 
-                String jsonInfoMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"EventMsg\": \"This is test event %d for Java Logging with Logback and Splunk HEC\"}", Instant.now().toEpochMilli(), "infoLogs", "JavaLogging", splunkSourceType, hostname, i);
+                String jsonInfoMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\"}", Instant.now().toEpochMilli(), "This is info test event " + i + " for Java Logging with Logback and Splunk HEC", "JavaLogging", splunkSourceType, hostname);
                 logger.info("{}", jsonInfoMsg);
 
-                String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\"}", Instant.now().toEpochMilli(), "debugLogs", "JavaLogging", splunkSourceType, hostname, splunkUrl, splunkToken, splunkIndex, splunkType);
+                String jsonDebugMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"clientDetails\": { \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\" } }", Instant.now().toEpochMilli(), "This is debug test event " + i + " for Java Logging with Logback and Splunk HEC", "JavaLogging", splunkSourceType, hostname, splunkUrl, splunkToken, splunkIndex, splunkType);
                 logger.debug("{}", jsonDebugMsg);
 
                 Thread.sleep(1000);
             } catch (Exception e) {
-                String jsonExceptionMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\", \"SplunkURL\": \"%s\", \"SplunkToken\": \"%s\", \"SplunkIndex\": \"%s\", \"SplunkType\": \"%s\"}", Instant.now().toEpochMilli(), "errorLogs", "JavaLogging", splunkSourceType, hostname, splunkUrl, splunkToken, splunkIndex, splunkType);
+                String jsonExceptionMsg = String.format("{\"time\": %d, \"event\": \"%s\", \"source\": \"%s\", \"sourcetype\": \"%s\", \"host\": \"%s\"}", Instant.now().toEpochMilli(), "This is error test event " + i + " for Java Logging with Logback and Splunk HEC", "JavaLogging", splunkSourceType, hostname);
                 logger.error("{}", jsonExceptionMsg);
             }
         }
