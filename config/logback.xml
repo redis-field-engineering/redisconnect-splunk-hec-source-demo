@@ -42,7 +42,7 @@
         </layout>
     </appender>
 
-    <logger name="redis.redis.connect" level="info" additivity="false">
+    <logger name="com.redis.connect" level="info" additivity="false">
         <appender-ref ref="REDISCONNECT"/>
         <appender-ref ref="REDISCONNECT_SPLUNK"/>
         <appender-ref ref="CONSOLE" />
