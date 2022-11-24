@@ -24,7 +24,7 @@ e.g.
 redisconnect-splunk-hec-source$ java -jar \
 -Dlogback.configurationFile=config/logback.xml \
 -Dsplunk.url=http://localhost:8088 \
--Dsplunk.token=414b7f8e-cfbb-4a9a-b18a-303de41ccc76 \
+-Dsplunk.token=01259fdc-c155-40dc-a418-978082846d23 \
 -Dsplunk.index=hec \
 -Dsplunk.sourcetype=logback \
 -Dsplunk.type=json \
